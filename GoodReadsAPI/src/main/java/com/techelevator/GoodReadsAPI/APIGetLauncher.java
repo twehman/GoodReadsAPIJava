@@ -15,11 +15,14 @@ public class APIGetLauncher {
 		StaXParser parser = new StaXParser();
 		GoodReadsWebRequest testRequest = new GoodReadsWebRequest();
 		
-		GoodReadsWebRequest.determineAuthorID();
-		
-		GoodReadsWebRequest.getListOfAuthorBooks();
 		ArrayList<Book> books = new ArrayList<Book>();
-		System.out.println(parser.readConfig("xmlresponse.txt").size());
-
+		for (int i = 1; i <= 5; i++) {
+		GoodReadsWebRequest.getListOfAuthorBooks(i);
+		Thread.sleep(1000);
+		for (Book item : parser.readConfig("xmlresponse.txt")) {
+			books.add(item);
+		}
+		}
+		System.out.println(books.size());
 }
 }

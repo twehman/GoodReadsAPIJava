@@ -39,11 +39,11 @@ public class GoodReadsWebRequest {
 	    }
 	}
 	
-	public static void getListOfAuthorBooks() throws IOException, InterruptedException {
-		int currPage = 1;
-		int finalPage = 5;
-		while (finalPage >= currPage) {
-	    URL urlForGetRequest = new URL("https://www.goodreads.com/author/list/123715?format=xml&key=YAlLGMcHE1fx8JP1n3IgNg&page=" + currPage);
+	public static void getListOfAuthorBooks(int callPage) throws IOException, InterruptedException {
+//		int currPage = callPage;
+//		int finalPage = 5;
+//		while (finalPage >= currPage) {
+	    URL urlForGetRequest = new URL("https://www.goodreads.com/author/list/123715?format=xml&key=YAlLGMcHE1fx8JP1n3IgNg&page=" + callPage);
 	    String readLine = null;
 	    HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
 	    conection.setRequestMethod("GET");
@@ -61,18 +61,17 @@ public class GoodReadsWebRequest {
 	        } in .close();
 	        // print result
 	        File xmlResponse = new File("xmlresponse.txt");
-	        FileWriter outFile = new FileWriter(xmlResponse, true);
+	        FileWriter outFile = new FileWriter(xmlResponse);
 	        outFile.write(response.toString());
-	        outFile.write("\n");
 	        outFile.close();
 	        System.out.println("JSON String Result " + response.toString());
 	        //GetAndPost.POSTRequest(response.toString());
 	    } else {
 	        System.out.println("GET NOT WORKED");
 	    }
-	    currPage++;
-	    Thread.sleep(1000);
-		}
+//	    currPage++;
+//	    Thread.sleep(1000);
+//		}
 	}
 	
 	public static int determineFinalPage(String bookStartTag) {

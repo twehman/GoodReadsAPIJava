@@ -72,7 +72,12 @@ public class StaXParser {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(ISBN)) {
                         event = eventReader.nextEvent();
+                        try {
                         item.setIsbn(event.asCharacters().getData());
+                        }
+                        catch (ClassCastException e) {
+                        	item.setIsbn("Not Found");
+                        }
                         continue;
                     }
 
@@ -94,7 +99,12 @@ public class StaXParser {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(NUMOFPAGES)) {
                         event = eventReader.nextEvent();
+                        try {
                         item.setNumOfPages(event.asCharacters().getData());
+                        }
+                        catch (ClassCastException e) {
+                        	item.setNumOfPages("0");
+                        }
                         continue;
                     }
                     if (event.asStartElement().getName().getLocalPart()
@@ -117,7 +127,12 @@ public class StaXParser {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(DESCRIPTION)) {
                         event = eventReader.nextEvent();
+                        try {
                         item.setDescription(event.asCharacters().getData());
+                        }
+                        catch (ClassCastException e) {
+                        	item.setDescription("Invalid");
+                        }
                         continue;
                     }
                 }
