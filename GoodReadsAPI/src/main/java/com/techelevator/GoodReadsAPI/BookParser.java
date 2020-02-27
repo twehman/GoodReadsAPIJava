@@ -20,7 +20,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import org.xml.sax.ContentHandler;
 
-public class StaXParser {
+public class BookParser {
 	static final String BOOK = "book";
 	static final String AUTHORID = "id";
 	static final String AUTHORNAME = "name";
@@ -118,10 +118,8 @@ public class StaXParser {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(RATINGCOUNT)) {
                         event = eventReader.nextEvent();
-                        if (Integer.parseInt(event.asCharacters().getData()) <= startingReviewCount ) {
-                        	item.setRatingCount(event.asCharacters().getData());
-                        	startingReviewCount = Integer.parseInt(event.asCharacters().getData());
-                        }
+                        	item.setRatingCount(String.valueOf((Math.min(startingReviewCount, Integer.parseInt(event.asCharacters().getData())))));
+                        	startingReviewCount = Math.min(startingReviewCount,Integer.parseInt(event.asCharacters().getData()));
                         continue;
                     }
                     if (event.asStartElement().getName().getLocalPart()
