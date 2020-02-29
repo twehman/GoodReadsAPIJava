@@ -35,7 +35,6 @@ public class JdbcBookDao implements BookDAO {
 		for(Book book: books) {
 			book.setAuthorId(String.valueOf(authorId));
 			book.setAuthorName(authorName);
-			System.out.println("auth id is: " + book.getAuthorId());
 			int authorId2 = Integer.parseInt(book.getAuthorId());
 			if (book.getIsbn().equals(null) || book.getIsbn().equals("Not Found")) {
 				book.setIsbn("000");
