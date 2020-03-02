@@ -62,7 +62,7 @@ public class JdbcBookDao implements BookDAO {
 			}
 			long numRatings = Long.parseLong(book.getRatingCount());
 		jdbcTemplate.update("Insert into books (author_id, author_name, isbn, title, book_link, number_of_ages, "
-				+ "average_rating, number_of_ratings, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
+				+ "average_rating, number_of_ratings, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING;"
 				,authorId2, book.getAuthorName(), Long.parseLong(book.getIsbn()), book.getBookTitle(), book.getBookLink(), numPages, avgRating, numRatings, book.getDescription());
 		}
 	}

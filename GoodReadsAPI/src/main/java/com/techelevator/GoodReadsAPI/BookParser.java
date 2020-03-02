@@ -45,7 +45,7 @@ public class BookParser {
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             // read the XML document
             Book item = null;
-
+            boolean hasRating = false;
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
                 
@@ -107,14 +107,17 @@ public class BookParser {
                         }
                         continue;
                     }
+                    
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(AVERAGERATING)) {
                         event = eventReader.nextEvent();
-                        if (!event.asCharacters().getData().equals("4.00")) {
+                        if (!hasRating) {
                         	item.setAverageRating(event.asCharacters().getData());
+                        	hasRating = true;
                         }
                         continue;
                     }
+                    
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(RATINGCOUNT)) {
                         event = eventReader.nextEvent();
@@ -139,6 +142,7 @@ public class BookParser {
                     EndElement endElement = event.asEndElement();
                     if (endElement.getName().getLocalPart().equals(BOOK)) {
                         items.add(item);
+                        hasRating = false;
                     }
                 }
 
